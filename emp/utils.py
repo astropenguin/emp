@@ -87,7 +87,7 @@ def clone_from_url(url, cwd=None, encoding='utf-8'):
     return Path(url.rstrip('.git').split('/')[-1])
 
 
-def show_prompt(question, pattern_true='^[Y|y]'):
+def show_prompt(question, pattern_true='^[Y|y](ES|es)?$'):
     answer = input(question)
     logger.info('{0} --> {1}'.format(question, answer))
     return bool(re.search(pattern_true, answer))
