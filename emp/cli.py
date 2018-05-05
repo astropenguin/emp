@@ -8,10 +8,10 @@ Usage:
   emp -v | --version
 
 Options:
-  -h --help             Show this screen and exit.
+  -h --help             Show the help and exit.
   -v --version          Show the version and exit.
   -f --force            Force to answer every question with Yes.
-  --pattern <pattern>   Name pattern of empfiles [default: *.yaml].
+  --pattern <pattern>   Name pattern of empfiles [default: *empfile*.yaml].
   --github <user/repo>  Clone a empfiles' repository from GitHub.
   --gitlab <user/repo>  Clone a empfiles' repository from GitLab.
   --url <url>           Clone a empfiles' repository from a URL.
