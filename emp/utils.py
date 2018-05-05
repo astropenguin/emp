@@ -87,4 +87,4 @@ def clone_from_url(url, cwd=None, encoding='utf-8'):
 def show_prompt(question, pattern_true='^[Y|y]'):
     answer = input(message)
     logger.info('{0} --> {1}'.format(question, answer))
-    return bool(re.search(pattern_true, answer)))
+    return bool(re.search(pattern_true, answer))
