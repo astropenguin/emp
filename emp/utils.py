@@ -4,9 +4,9 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 # public items
 __all__ = ['call',
-           'from_github',
-           'from_gitlab',
-           'from_url']
+           'clone_from_github',
+           'clone_from_gitlab',
+           'clone_from_url']
 
 # standard library
 from pathlib2 import Path
@@ -15,8 +15,9 @@ from subprocess import Popen, PIPE, STDOUT
 logger = getLogger(__name__)
 
 # module constants
-URL_GITHUB = 'https://github.com/{0}/{1}.git'
-URL_GITLAB = 'https://gitlab.com/{0}/{1}.git'
+CMD_GITHUB = 'git clone https://github.com/{0}'
+CMD_GITLAB = 'git clone https://gitlab.com/{0}'
+CMD_URL    = 'git clone {0}'
 
 
 # functions
@@ -57,16 +58,18 @@ def call(cmd, cwd=None, encoding='utf-8'):
     return proc.returncode
 
 
-def from_github(user, repo, cwd=None, encoding='utf-8'):
-    cmd = 'git clone ' + URL_GITHUB.format(user, repo)
-    call(cmd, cwd, encoding)
+def clone_from_github(user_repo, cwd=None, encoding='utf-8'):
+    call(CMD_GITHUB.format(user_repo), cwd, encoding)
+    return Path(user_repo.rstrip('.git').split('/')[-1])
 
 
-def from_gitlab(user, repo, cwd=None, encoding='utf-8'):
-    cmd = 'git clone ' + URL_GITLAB.format(user, repo)
-    call(cmd, cwd, encoding)
+def clone_from_gitlab(user_repo, cwd=None, encoding='utf-8'):
+    call(CMD_GITLAB.format(user_repo), cwd, encoding)
+    return Path(user_repo.rstrip('.git').split('/')[-1])
 
 
-def from_url(url, cwd=None, encoding='utf-8'):
-    cmd = 'git clone ' + url
-    call(cmd, cwd, encoding)
+def clone_from_url(url, cwd=None, encoding='utf-8'):
+    call(CMD_URL.format(url), cwd, encoding)
+    return Path(url.rstrip('.git').split('/')[-1])
+
+
