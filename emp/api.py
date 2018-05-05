@@ -17,6 +17,7 @@ logger = getLogger(__name__)
 
 # dependent packages
 import emp
+import yaml
 from pathlib2 import Path
 
 # module constants
