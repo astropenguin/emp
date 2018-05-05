@@ -11,14 +11,16 @@ __all__ = ['run',
            'uninstall']
 
 # standard library
-from functools import partial
 from logging import getLogger
-logger = getLogger(__name__)
+from functools import partial
 
 # dependent packages
 import emp
 import yaml
 from pathlib2 import Path
+
+# module logger
+logger = getLogger(__name__)
 
 # module constants
 REQUIREMENTS = 'requirements'

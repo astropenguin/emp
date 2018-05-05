@@ -12,9 +12,13 @@ __all__ = ['call',
 # standard library
 import re
 import sys
-from pathlib2 import Path
 from logging import getLogger
 from subprocess import Popen, PIPE, STDOUT
+
+# dependent packages
+from pathlib2 import Path
+
+# module logger
 logger = getLogger(__name__)
 
 # module constants
