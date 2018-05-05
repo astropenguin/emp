@@ -11,7 +11,7 @@ __all__ = ['run',
            'uninstall']
 
 # standard library
-from logging import getLogger
+from logging import getLogger, INFO, DEBUG
 from functools import partial
 
 # dependent packages
@@ -40,6 +40,7 @@ def run(empfile, action, encoding='utf-8'):
 
     """
     path = Path(empfile).expanduser()
+    cwd = path.parent
 
     if not path.exists():
         logger.warning('warn')
@@ -63,11 +64,12 @@ def run(empfile, action, encoding='utf-8'):
         logger.warning('warn')
         return None
     else:
-        return emp.call(cmd, path.parent, encoding)
+        return emp.call(cmd, cwd, INFO, encoding)
 
 
 def meet_requirements(empfile, encoding='utf-8'):
     path = Path(empfile).expanduser()
+    cwd = path.parent
 
     if not path.exists():
         logger.warning('warn')
@@ -84,13 +86,13 @@ def meet_requirements(empfile, encoding='utf-8'):
             return False
 
     def meet(name, cmds):
-        if not emp.call(cmds['try'], path.parent, encoding):
+        if not emp.call(cmds['try'], cwd, DEBUG, encoding):
             logger.info('info')
             return True
 
-        emp.call(cmds['except'], path.parent, encoding)
+        emp.call(cmds['except'], cwd, DEBUG, encoding)
 
-        if not emp.call(cmds['try'], path.parent, encoding):
+        if not emp.call(cmds['try'], cwd, DEBUG, encoding):
             logger.info('info')
             return True
         else:

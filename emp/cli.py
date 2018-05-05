@@ -63,7 +63,7 @@ def run_action(args):
     q = 'Run {0} in {1} ? [y|n] '
     for empfile in Path(args['<path>']).glob(pattern):
         if force or emp.show_prompt(q.format(action, empfile)):
-            emp.run(empfile, action, 'utf-8')
+            emp.run(empfile, action, INFO, args['--encoding'])
 
 
 def main():

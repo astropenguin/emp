@@ -12,7 +12,7 @@ __all__ = ['call',
 # standard library
 import re
 import sys
-from logging import getLogger
+from logging import getLogger, INFO, DEBUG
 from subprocess import Popen, PIPE, STDOUT
 
 # dependent packages
@@ -32,12 +32,13 @@ if sys.version_info.major == 2:
 
 
 # functions
-def call(cmd, cwd=None, encoding='utf-8'):
+def call(cmd, cwd=None, loglevel=INFO, encoding='utf-8'):
     """Run shell script and log stdout.
 
     Args:
         cmd (str):
         cwd (str or path):
+        loglevel (int):
         encoding (str):
 
     Returns:
@@ -64,23 +65,23 @@ def call(cmd, cwd=None, encoding='utf-8'):
                     break
 
     for line in getlines():
-        logger.info(line.rstrip('\n'))
+        logger.log(loglevel, line.rstrip('\n'))
 
     return proc.returncode
 
 
 def clone_from_github(user_repo, cwd=None, encoding='utf-8'):
-    call(CMD_GITHUB.format(user_repo), cwd, encoding)
+    call(CMD_GITHUB.format(user_repo), cwd, DEBUG, encoding)
     return Path(user_repo.rstrip('.git').split('/')[-1])
 
 
 def clone_from_gitlab(user_repo, cwd=None, encoding='utf-8'):
-    call(CMD_GITLAB.format(user_repo), cwd, encoding)
+    call(CMD_GITLAB.format(user_repo), cwd, DEBUG, encoding)
     return Path(user_repo.rstrip('.git').split('/')[-1])
 
 
 def clone_from_url(url, cwd=None, encoding='utf-8'):
-    call(CMD_URL.format(url), cwd, encoding)
+    call(CMD_URL.format(url), cwd, DEBUG, encoding)
     return Path(url.rstrip('.git').split('/')[-1])
 
 
