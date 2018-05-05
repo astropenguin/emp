@@ -91,7 +91,7 @@ def meet_requirements(empfile, encoding='utf-8'):
 
         emp.call(cmds['except'], path.parent, encoding)
 
-        if not emp.call(val['try'], path.parent, encoding):
+        if not emp.call(cmds['try'], path.parent, encoding):
             logger.info('info')
             return True
         else:
