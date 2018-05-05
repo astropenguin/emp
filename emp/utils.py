@@ -7,7 +7,7 @@ __all__ = ['call',
            'clone_from_github',
            'clone_from_gitlab',
            'clone_from_url',
-           'prompt']
+           'show_prompt']
 
 # standard library
 import re
@@ -84,7 +84,7 @@ def clone_from_url(url, cwd=None, encoding='utf-8'):
     return Path(url.rstrip('.git').split('/')[-1])
 
 
-def prompt(question, pattern_true='^[Y|y]'):
+def show_prompt(question, pattern_true='^[Y|y]'):
     answer = input(message)
     logger.info('{0} --> {1}'.format(question, answer))
     return bool(re.search(pattern_true, answer)))
