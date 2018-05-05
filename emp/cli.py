@@ -67,10 +67,9 @@ def run_action(args):
 
 def main():
     args = docopt(__doc__, version=emp.__version__)
-    # logging
-    # clone
-    # os.walk
-    # prompt
+    set_logging(args)
+    clone_repo(args)
+    run_action(args)
 
 
 # main
