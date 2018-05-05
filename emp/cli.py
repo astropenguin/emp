@@ -33,6 +33,14 @@ from docopt import docopt
 
 
 # functions
+def set_logging(args):
+    basicConfig(filename=args['--log'], filemode='w',
+                datefmt='%Y-%m-%d %H:%M:%S',
+                format='%(asctime)s | %(levelname)-8s | %(message)s')
+
+    logger.setLevel(INFO)
+
+
 def clone_repo(args):
     if args['--github']:
         repo = emp.clone_from_github(args['--github'])
@@ -44,6 +52,17 @@ def clone_repo(args):
         repo = Path()
 
     args.update({'<path>': str(Path(args['<path>'])/repo)})
+
+
+def run_action(args):
+    force = args['--force']
+    action = args['<action>']
+    pattern = '**/' + args['--pattern']
+
+    q = 'Run {0} in {1} ? [y|n] '
+    for empfile in Path(args['<path>']).glob(pattern):
+        if force or emp.show_prompt(q.format(action, empfile)):
+            emp.run(empfile, action, 'utf-8')
 
 
 def main():
