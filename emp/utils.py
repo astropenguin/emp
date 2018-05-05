@@ -6,9 +6,12 @@ from __future__ import absolute_import, print_function, unicode_literals
 __all__ = ['call',
            'clone_from_github',
            'clone_from_gitlab',
-           'clone_from_url']
+           'clone_from_url',
+           'prompt']
 
 # standard library
+import re
+import sys
 from pathlib2 import Path
 from logging import getLogger
 from subprocess import Popen, PIPE, STDOUT
@@ -18,6 +21,10 @@ logger = getLogger(__name__)
 CMD_GITHUB = 'git clone https://github.com/{0}'
 CMD_GITLAB = 'git clone https://gitlab.com/{0}'
 CMD_URL    = 'git clone {0}'
+
+# Python 2/3 matters
+if sys.version_info.major == 2:
+    input = raw_input
 
 
 # functions
@@ -73,3 +80,7 @@ def clone_from_url(url, cwd=None, encoding='utf-8'):
     return Path(url.rstrip('.git').split('/')[-1])
 
 
+def prompt(question, pattern_true='^[Y|y]'):
+    answer = input(message)
+    logger.info('{0} --> {1}'.format(question, answer))
+    return bool(re.search(pattern_true, answer)))
