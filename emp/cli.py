@@ -22,14 +22,15 @@ Options:
 from __future__ import absolute_import, print_function, unicode_literals
 
 # standard library
-import os
-import re
-import sys
-from logging import basicConfig
+from logging import basicConfig, getLogger, INFO
 
 # dependent packages
 import emp
 from docopt import docopt
+from pathlib2 import Path
+
+# module logger
+logger = getLogger('emp')
 
 
 # functions
