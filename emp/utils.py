@@ -58,11 +58,13 @@ def call(cmd, cwd=None, loglevel=INFO, encoding='utf-8'):
     def getlines():
         while True:
             line = proc.stdout.readline()
+
             if line:
                 yield line.decode(encoding)
-            else:
-                if proc.poll() is not None:
-                    break
+                continue
+
+            if proc.poll() is not None:
+                break
 
     for line in getlines():
         logger.log(loglevel, line.rstrip('\n'))
