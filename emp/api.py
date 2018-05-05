@@ -43,28 +43,27 @@ def run(empfile, action, encoding='utf-8'):
 
     if not path.exists():
         logger.warning('warn')
-        return False
+        return None
 
     if action == REQUIREMENTS:
         logger.warning('warn')
-        return False
-
-    if not meet_requirements(empfile, encoding):
-        logger.warning('warn')
-        return False
+        return None
 
     with path.open('r') as f:
         try:
             cmd = yaml.load(f)[action]
         except KeyError:
             logger.warning('warn')
-            return True
+            return None
         except:
             logger.warning('warn')
-            return False
+            return None
 
-    emp.call(cmd, path.parent, encoding)
-    return True
+    if not meet_requirements(empfile, encoding):
+        logger.warning('warn')
+        return None
+    else:
+        return emp.call(cmd, path.parent, encoding)
 
 
 def meet_requirements(empfile, encoding='utf-8'):
