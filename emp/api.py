@@ -50,7 +50,7 @@ def run(empfile, action, encoding='utf-8'):
         logger.warning('warn')
         return None
 
-    with path.open('r') as f:
+    with path.open('r', encoding=encoding) as f:
         try:
             cmd = yaml.load(f)[action]
         except KeyError:
@@ -75,7 +75,7 @@ def meet_requirements(empfile, encoding='utf-8'):
         logger.warning('warn')
         return False
 
-    with path.open('r') as f:
+    with path.open('r', encoding=encoding) as f:
         try:
             reqs = yaml.load(f)[REQUIREMENTS]
         except KeyError:
