@@ -33,13 +33,17 @@ from docopt import docopt
 
 
 # functions
-def clone(args):
+def clone_repo(args):
     if args['--github']:
-        return emp.clone_from_github(args['--github'])
+        repo = emp.clone_from_github(args['--github'])
     elif args['--gitlab']:
-        return emp.clone_from_gitlab(args['--gitlab'])
+        repo = emp.clone_from_gitlab(args['--gitlab'])
     elif args['--url']:
-        return emp.clone_from_url(args['--url'])
+        repo = emp.clone_from_url(args['--url'])
+    else:
+        repo = Path()
+
+    args.update({'<path>': str(Path(args['<path>'])/repo)})
 
 
 def main():
