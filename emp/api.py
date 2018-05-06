@@ -81,20 +81,6 @@ def meet_requirements(empfile, encoding='utf-8'):
     path = Path(empfile).expanduser()
     cwd = path.parent
 
-    if not path.exists():
-        logger.warning('warn')
-        return False
-
-    with path.open('r', encoding=encoding) as f:
-        try:
-            reqs = yaml.load(f)[REQUIREMENTS]
-        except KeyError:
-            logger.warning('warn')
-            return True
-        except:
-            logger.warning('warn')
-            return False
-
     def meet(name, cmds):
         if not emp.call(cmds['try'], cwd, DEBUG, encoding):
             logger.info('info')
@@ -106,6 +92,20 @@ def meet_requirements(empfile, encoding='utf-8'):
             logger.info('info')
             return True
         else:
+            logger.warning('warn')
+            return False
+
+    if not path.exists():
+        logger.warning('warn')
+        return False
+
+    with path.open('r', encoding=encoding) as f:
+        try:
+            reqs = yaml.load(f)[REQUIREMENTS]
+        except KeyError:
+            logger.warning('warn')
+            return True
+        except:
             logger.warning('warn')
             return False
 
