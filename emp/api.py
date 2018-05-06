@@ -11,8 +11,8 @@ __all__ = ['run',
            'uninstall']
 
 # standard library
-from logging import getLogger, INFO, DEBUG
 from functools import partial
+from logging import getLogger, INFO, DEBUG
 
 # dependent packages
 import emp
