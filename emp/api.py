@@ -36,7 +36,7 @@ def run(empfile, action, encoding='utf-8'):
         encoding (str):
 
     Returns:
-        finished with no problem (bool):
+        returncode (int):
 
     """
     path = Path(empfile).expanduser()
@@ -68,6 +68,16 @@ def run(empfile, action, encoding='utf-8'):
 
 
 def meet_requirements(empfile, encoding='utf-8'):
+    """Read empfile and check all requirements are met.
+
+    Args:
+        empfile (str or path):
+        encoding (str):
+
+    Returns
+        all requirements are met (bool):
+
+    """
     path = Path(empfile).expanduser()
     cwd = path.parent
 

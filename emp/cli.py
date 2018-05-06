@@ -35,6 +35,15 @@ logger = getLogger('emp')
 
 # functions
 def set_logging(args):
+    """Set Python's logging.
+
+    Args:
+        args (dict):
+
+    Returns:
+        This function returns nothing.
+
+    """
     basicConfig(filename=args['--log'], filemode='w',
                 datefmt='%Y-%m-%d %H:%M:%S',
                 format='%(asctime)s | %(levelname)-8s | %(message)s')
@@ -43,6 +52,15 @@ def set_logging(args):
 
 
 def clone_repo(args):
+    """Clone repository of empfiles.
+
+    Args:
+        args (dict):
+
+    Returns:
+        This function returns nothing.
+
+    """
     if args['--github']:
         repo = emp.clone_from_github(args['--github'])
     elif args['--gitlab']:
@@ -58,6 +76,15 @@ def clone_repo(args):
 def run_action(args):
     force = args['--force']
     action = args['<action>']
+    """Run action of empfile(s).
+
+    Args:
+        args (dict):
+
+    Returns:
+        This function returns nothing.
+
+    """
     pattern = '**/' + args['--pattern']
 
     q = 'Run {0} in {1} ? [y|n] '
